@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Dallas Bleak" />
+    <title>Movies Made Easy</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="/stylesheets/main.css">
+</head>
+
+<body>
+<div id="content">
+    <div id="nav_wrapper">
+        <ul>
+          <li>
+            <h2>Movies Made Easy</h2>
+          </li>
+        </ul>
+    </div>
+    <br>
+
+    <form id="form" action="/getMovies" method="post">
+      <fieldset>
+        <label for="searchMovie">Please enter a movie title: </label>
+        <input id="searchMovie" type="text" name="searchMovie">
+      <br/>
+      <br>
+      <button class="search_btn" type="submit" name="submit">Search</button>
+      </fieldset><br>
+    </form>
+      <form id="form2" action="/getTop20" method="post">
+      <button class="top20_btn" type="submit" name="submit">Get Top 20 Movies</button>
+    </form>
+    <hr>
+    <div>
+      <table id="movieResults">
+        
+      </table>
+    </div>
+    <div id="error"></div>
+
+  <footer>
+    <ul>
+      <li>
+       &copy D.Bleak
+      </li>
+      <li>
+        BYU-I CLASS: CS 313, ASSIGNMENT: Week10 Movies Made Easy
+      </li>
+    </ul>
+  </footer>
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "name": "movies_made_easy",
+  "version": "1.0.0",
+  "description": "An application the users can use to see the top 20 rated movies as well as search for and read information about any moview contained in the The Movie Database API",
+  "main": "app.js",
+  "scripts": {
+    "build": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "8.9.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Bleak-Dallas/movies_made_easy.git"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "moviedb": "^0.2.10"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "author": "Dallas Bleak",
+  "license": "ISC"
+}

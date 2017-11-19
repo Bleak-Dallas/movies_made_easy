@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Dallas Bleak" />
+    <title>Movies Made Easy</title>
+    <link rel="stylesheet" href="/stylesheets/main.css">
+</head>
+
+<body>
+<div id="content">
+    <div id="nav_wrapper">
+        <ul>
+          <li>
+            <h2>Top 20 Movies</h2> 
+          </li>
+        </ul>
+    </div>
+    <br/>
+    <% if (top20Results != null || top20Results != undefined) { %>
+    <table>
+      <tr>
+        <th>Rated</th>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Logo</th>
+        <th>Release Date</th>
+        <th>Overview</th>
+      </tr>
+      <% for (var i = 0; i < top20Results.length; i++) { %>
+      <tr>
+        <td><%= i+1 %></td>
+        <td><%= top20Results[i].id %></td>
+        <td><%= top20Results[i].title %></td>
+        <td><img src="https://image.tmdb.org/t/p/w500<%= top20Results[i].poster_path %> "></td>
+        <td><%= top20Results[i].release_date %></td>
+        <td><%= top20Results[i].overview %></td>
+      </tr>
+      <% } %>
+    </table>
+    <% } else {%>
+     <p>Movie could not be found</p>
+     <% } %>
+    
+  <footer>
+    <ul>
+      <li>
+       &copy D.Bleak
+      </li>
+      <li>
+        BYU-I CLASS: CS 313, ASSIGNMENT: Week10 Movies Made Easy
+      </li>
+    </ul>
+  </footer>
+
+  </div>
+</body>
+</html>
