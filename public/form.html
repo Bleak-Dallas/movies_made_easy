@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="author" content="Dallas Bleak" />
     <title>Movies Made Easy</title>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/ajaxMovie.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/stylesheets/main.css">
 </head>
 
@@ -19,25 +21,34 @@
     </div>
     <br>
 
-    <form id="form" action="/getMovies" method="post">
+    <form id="form" >
       <fieldset>
         <label for="searchMovie">Please enter a movie title: </label>
         <input id="searchMovie" type="text" name="searchMovie">
       <br/>
       <br>
-      <button class="search_btn" type="submit" name="submit">Search</button>
+      <button id="search" class="search_btn">Search</button>
       </fieldset><br>
     </form>
-      <form id="form2" action="/getTop20" method="post">
-      <button class="top20_btn" type="submit" name="submit">Get Top 20 Movies</button>
+      <form id="form2" >
+      <button id="top20" class="top20_btn" >Get Top 20 Movies</button>
     </form>
     <hr>
-    <div>
-      <table id="movieResults">
-        
-      </table>
+    <div id="movieResults"></div>
+
+    <div class="wrapper" style="display: none;">
+      <div class="poster"></div>
+      <div class="title"></div>
+      <div class="userScore"></div>
+      <div class="trailer"></div>
+      <div class="overview"></div>
+      <div class="cast"></div>
     </div>
-    <div id="error"></div>
+    <div id="myNav" class="overlay">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <div class="overlay-content">
+    </div>
+  </div>
 
   <footer>
     <ul>
@@ -49,7 +60,6 @@
       </li>
     </ul>
   </footer>
-
 
   </div>
 </body>

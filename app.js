@@ -38,6 +38,7 @@ app.get('/', function(request, response) {
 /*************************************************************
 * GET THE TOP 20 MOVIES
 *************************************************************/
+/*
 app.post('/getTop20', function(request, response) {
    var searchMovie   = request.body.searchMovie;
 
@@ -55,10 +56,11 @@ app.post('/getTop20', function(request, response) {
   response.send();
   });
 });
-
+*/
 /*************************************************************
 * SEARCH FOR AND RETURN MOVIES
 *************************************************************/
+/*
 app.post('/getMovies', function(request, response) {
    var searchMovie   = request.body.searchMovie;
     if (searchMovie) {
@@ -81,7 +83,7 @@ app.post('/getMovies', function(request, response) {
     console.log("SEARCH NOT DEFINED");
   }
 });
-
+*/
 /*************************************************************
 * FOR TESTING: test search the movie Alien
 *************************************************************/
