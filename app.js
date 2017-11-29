@@ -46,7 +46,7 @@ app.get('/', function(req, resp) {
 });
 
 /*************************************************************
-* GET A GUEST SESSION FROM "THE MOVIE DATABASE"
+* Get a guest session "THE MOVIE DATABASE"
 *************************************************************/
 
 if (sessionGuestID === ""); {
@@ -63,7 +63,7 @@ request(options, function (error, response, body) {
 }
 
 /*************************************************************
-* Get user rating
+* Post user rating
 *************************************************************/
 
 app.post('/userRating', function(req, resp) {
