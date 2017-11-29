@@ -140,12 +140,22 @@ td {
 .overview {
   font-size: 110%;
 }
-.trailer a{
-  text-decoration: none;
+.rate a{
   color: black;
+  text-decoration: none;
+}
+.rate a:hover{
+  color: red;
+}
+.trailer a{
+  color: black;
+  text-decoration: none;
 }
 .trailer a:hover{
   color: red;
+}
+.ratingPopUp {
+  display: none;
 }
 
 /*******************************
@@ -154,9 +164,9 @@ td {
 .wrapper {
   display: grid;
   grid-gap: 0 10px;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: minmax(100px, auto);
-}
+  grid-template-columns: repeat(3, .25fr);
+  grid-auto-rows: minmax(50px, auto);
+} 
 .poster {
   grid-column: 1;
   grid-row: 1 / 5;
@@ -169,14 +179,17 @@ td {
   grid-column: 2;
   grid-row: 2;
 }
-
-.trailer {
+.rate {
   grid-column: 3;
   grid-row: 2;
 }
-.overview {
-  grid-column: 2 / 3;
+.trailer {
+  grid-column: 2;
   grid-row: 3;
+}
+.overview {
+  grid-column: 2 / 4;
+  grid-row: 4;
 }
 /*
 .cast {
@@ -212,7 +225,7 @@ td {
     font-size: 36px;
     color: #818181;
     display: block; 
-    transition: 0.3s; /
+    transition: 0.3s; 
 }
 .overlay a:hover, .overlay a:focus {
     color: #f1f1f1;
@@ -276,6 +289,7 @@ td {
  * FOOTER
 *******************************/
 footer {
+  clear: both;
   border-radius: 8px;
   background-color: #2058ff;
   height: 40px;
@@ -294,3 +308,44 @@ footer ul li {
   padding: 10px 10px 5px 10px;
 }
 
+
+/****** Style Star Rating Widget *****/
+
+.rating { 
+  border: none;
+  float: left;
+}
+
+.rating > input { display: none; } 
+.rating > label:before { 
+  margin: 5px;
+  font-size: 2.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+.rating > .half:before { 
+  content: "\f089";
+  position: absolute;
+}
+
+.rating > label { 
+  color: #ddd; 
+ float: right; 
+}
+
+.rating > button { 
+ float: right; 
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 

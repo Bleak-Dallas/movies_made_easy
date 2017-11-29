@@ -6,17 +6,16 @@
 /*************************************************************
 * Modules
 *************************************************************/
+var request = require("request");
 var express = require('express');
+var session = require('express-session');
 var bodyParser = require('body-parser');
-const MovieDB = require('moviedb')('bf12ff7db24e0ff1faa7910b7b295c8b');
-var movieSearchResults = null;
-var top20Results = null;
-
+var sessionGuestID; // will implement sessions for guest id
+var guestID; // for guest session id
 /*************************************************************
 * Get Instances
 *************************************************************/
 var app = express();
-var mdb = MovieDB;
 
 /*************************************************************
 * Set Server, EJS, body-parser
@@ -27,74 +26,73 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(session({
+  secret: 'cJKM8cTG2YZ8VGfRyV7f',
+  resave: false,
+  saveUninitialized: false ,
+  cookie: { maxAge: 60000 }
+  })
+);
+app.use(function(req, res, next) {
+  console.log('%s %s', req.method, req.url);
+  next();
+});
 
 /*************************************************************
 * Set default page
 *************************************************************/
-app.get('/', function(request, response) {
-  response.sendFile(__dirname + '/public/form.html');
+app.get('/', function(req, resp) {
+  resp.sendFile(__dirname + '/public/form.html');
 });
 
 /*************************************************************
-* GET THE TOP 20 MOVIES
+* GET A GUEST SESSION FROM "THE MOVIE DATABASE"
 *************************************************************/
-/*
-app.post('/getTop20', function(request, response) {
-   var searchMovie   = request.body.searchMovie;
 
-   console.log('******START SEARCH******');
+if (sessionGuestID === ""); {
+var options = { method: 'GET',
+  url: 'https://api.themoviedb.org/3/authentication/guest_session/new',
+  qs: { api_key: 'bf12ff7db24e0ff1faa7910b7b295c8b' },
+  body: '{}' };
 
+request(options, function (error, response, body) {
+  if (error) throw new Error(error);
+  var parse = JSON.parse(body);
+  guestID = parse.guest_session_id;
+});
+}
 
-  mdb.discoverMovie({ sort_by : 'popularity.desc' }, (err, res) => {
-    top20Results = res.results;
+/*************************************************************
+* Get user rating
+*************************************************************/
 
-  for (var i = 0; i < top20Results.length; i++) { 
-    console.log('TITLE: ' + top20Results[i].title);
-  }
-  console.log('******END SEARCH******');
-  response.render("pages/top20", {top20Results:top20Results});
-  response.send();
+app.post('/userRating', function(req, resp) {
+  var movieID = req.body.movie_id;
+  var rating = req.body.rating;
+  var statusMessage;
+  console.log("**** SESSION (GUEST ID): " + guestID + " ****");
+  console.log("**** FORM VALUE RATING: " + req.body.rating + " ****");
+  console.log("**** FORM VALUE MOVIE ID: " + req.body.movie_id + " ****");
+  
+
+  var options = { method: 'POST',
+  url: 'https://api.themoviedb.org/3/movie/' + movieID + '/rating',
+  qs: 
+   {  guest_session_id: guestID,
+      api_key: 'bf12ff7db24e0ff1faa7910b7b295c8b' },
+      headers: { 'content-type': 'application/json;charset=utf-8' },
+      body: { value: rating },
+      json: true };
+
+  request(options, function (error, response, body) {
+    if (error) throw new Error(error);
+    console.log(body);
+    statusMessage = body.status_message;
+     console.log("**** USER RATING RESPONSE: " + statusMessage + " ****");
+    resp.json({status_message: statusMessage});
+    resp.end();
   });
 });
-*/
-/*************************************************************
-* SEARCH FOR AND RETURN MOVIES
-*************************************************************/
-/*
-app.post('/getMovies', function(request, response) {
-   var searchMovie   = request.body.searchMovie;
-    if (searchMovie) {
-
-   console.log('******START SEARCH******');
-   console.log('SEARCH QUERY: ' + searchMovie);
-
-
-  mdb.searchMovie({ query: searchMovie }, (error, res) => {
-    movieSearchResults = res.results;
-
-  for (var i = 0; i < movieSearchResults.length; i++) { 
-    console.log('TITLE: ' + movieSearchResults[i].title);
-  }
-  console.log('******END SEARCH******');
-  response.render("pages/movieSearch", {movieSearchResults:movieSearchResults});
-  response.send();
-  });
-  } else {
-    console.log("SEARCH NOT DEFINED");
-  }
-});
-*/
-/*************************************************************
-* FOR TESTING: test search the movie Alien
-*************************************************************/
-/*mdb
-.movieInfo({ id: 278 }, (err, res) => {
-    console.log(res);
-  })
-
-.discoverMovie({ sort_by : 'popularity.desc' }, (err, res) => {
-    console.log(res);
-  });*/
 
 /*************************************************************
 * Start the server
