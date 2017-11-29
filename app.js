@@ -48,8 +48,6 @@ app.get('/', function(req, resp) {
 /*************************************************************
 * Get a guest session "THE MOVIE DATABASE"
 *************************************************************/
-
-if (sessionGuestID === ""); {
 var options = { method: 'GET',
   url: 'https://api.themoviedb.org/3/authentication/guest_session/new',
   qs: { api_key: 'bf12ff7db24e0ff1faa7910b7b295c8b' },
@@ -60,12 +58,11 @@ request(options, function (error, response, body) {
   var parse = JSON.parse(body);
   guestID = parse.guest_session_id;
 });
-}
+
 
 /*************************************************************
 * Post user rating
 *************************************************************/
-
 app.post('/userRating', function(req, resp) {
   var movieID = req.body.movie_id;
   var rating = req.body.rating;
