@@ -1,6 +1,6 @@
 /*******************************
-* Author: Dallas Bleak
-* Created: 11/07/2017
+ * Author: Dallas Bleak
+ * Created for MOVIES MADE EASY
 ********************************/
 
 /*************************************************************
@@ -12,6 +12,7 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var sessionGuestID; // will implement sessions for guest id
 var guestID; // for guest session id
+
 /*************************************************************
 * Get Instances
 *************************************************************/
@@ -58,7 +59,6 @@ request(options, function (error, response, body) {
   var parse = JSON.parse(body);
   guestID = parse.guest_session_id;
 });
-
 
 /*************************************************************
 * Post user rating

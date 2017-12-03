@@ -60,9 +60,10 @@
               <input type="radio" id="star1" name="rating" value="1" />
               <label class = "full" for="star1" title="Sucks big time - 1 star"></label>
               <input type="radio" id="starhalf" name="rating" value="0.5" />
-              <label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
-
-              <button id="rateButton" >Rate</button>
+              <label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label><br>
+              <button class="cart_btn" id="rateButton" >Rate</button><br>
+              <br>
+              <br>
           </fieldset>
         </form>
       <a href="#" id="closeRating" rel="modal:close"></a>
@@ -70,10 +71,9 @@
     <div class="wrapper" style="display: none;"> <!-- Movie Details -->
       <div class="poster"></div>
       <div class="title"></div>
+      <div class="mpaa"></div>
       <div class="userScore"></div>
-      <div class="rate">
-        <h4><a href="#ex1" id="rateMovie" rel="modal:open">Rate Movie</a></h4>
-      </div>
+      <div class="rate"></div>
       <div class="trailer"></div>
       <div class="overview"></div>
       <div class="cast"></div>
@@ -90,7 +90,7 @@
        &copy D.Bleak
       </li>
       <li>
-        BYU-I CLASS: CS 313, ASSIGNMENT: Week10 Movies Made Easy
+        BYU-I CLASS: CS 313, ASSIGNMENT: Movies Made Easy
       </li>
     </ul>
   </footer>

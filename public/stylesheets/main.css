@@ -1,6 +1,6 @@
 /*******************************
-* Author: Dallas Bleak
-* Created: 11/09/2017
+ * Author: Dallas Bleak
+ * Created for MOVIES MADE EASY
 ********************************/
 
 /*******************************
@@ -57,6 +57,11 @@ h1 {
 .poster img{
   width: 100%;
   height: auto;
+}
+
+.mpaa img {
+    width: auto;
+    height: 60px;
 }
 
 img {
@@ -157,6 +162,11 @@ td {
 .ratingPopUp {
   display: none;
 }
+.closePara {
+  color: green;
+  font-size: 120%;
+  font-weight: bold;
+}
 
 /*******************************
  * GRID
@@ -173,6 +183,10 @@ td {
 }
 .title { 
   grid-column: 2;
+  grid-row: 1;
+}
+.mpaa { 
+  grid-column: 3;
   grid-row: 1;
 }
 .userScore {
@@ -285,6 +299,9 @@ td {
   padding: 10px;
 }
 
+#rateButton {
+  float: left;
+}
 /*******************************
  * FOOTER
 *******************************/
