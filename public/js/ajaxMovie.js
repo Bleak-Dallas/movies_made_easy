@@ -17,26 +17,27 @@ $(function() {
      * This function seaches for and returns the movie
      ***************************************************************/
     searchButton.on('click', function(e) {
+      var searchMovie = $('#searchMovie').val();
+      console.log("====Search===== CALLED");
+      console.log("SEARCH QUERY: " + searchMovie);
+      // prevent the form from submitting.
+      e.preventDefault();
 
-    // prevent the form from submitting.
-    e.preventDefault();
-
-    //jquery ajax get request using apikey and user's input as parameters
-    $.ajax({
-      url : "https://api.themoviedb.org/3/search/movie",
-      type : "GET",  // for post change this to POST
-      data : {api_key : key, page : "1", language : "en-US", query : userInput.val()},
-      dataType : "json",
-      success : function (response, status, http) {
-        console.log("****SUCCESS CALLED****");
-        displaySearchResults(response);
-      },
-      error : function (http, status, error) {
-        alert("some error occured: " + error);
-      }
-    });
+      //jquery ajax get request using apikey and user's input as parameters
+      $.ajax({
+        url : "/search", 
+        type : "GET", 
+        data : {query : searchMovie},
+        dataType : "json",
+        success : function (response, status, http) {
+          console.log("**** SEARCH SUCCESS CALLED****");
+          displaySearchResults(response);
+        },
+        error : function (http, status, error) {
+          alert("ERROR in search function: " + error);
+        }
+      });
   });
-
 
   /***************************************************************
    * TOP 20 FUNCTION
@@ -47,18 +48,17 @@ $(function() {
       // prevent the form from submitting.
       e.preventDefault();
 
-      //jquery ajax get request using apikey and user's input as parameters
+      //jquery ajax get request to server
       $.ajax({
-        url : "https://api.themoviedb.org/3/discover/movie",
-        type : "GET",  // for post change this to POST
-        data : {api_key : key, page : "1", language : "en-US", sort_by : "popularity.desc"},
+        url : "/top20",
+        type : "GET", 
         dataType : "json",
         success : function (response, status, http) {
           console.log("****SUCCESS CALLED****");
           displaySearchResults(response);
         },
         error : function (http, status, error) {
-          alert("some error occured: " + error);
+          alert("ERROR in top20 function: " + error);
         }
       });
     });
@@ -73,7 +73,6 @@ $(function() {
     // prevent the form from submitting.
       e.preventDefault();
 
-    var key = "bf12ff7db24e0ff1faa7910b7b295c8b";
     var rating =  $("input[name='rating']:checked").val();
     var movieID =  $('#movie_id').val(); 
 
@@ -85,15 +84,14 @@ $(function() {
              },
       dataType : "json",
       success : function (response, status, http) {
-        console.log("****getGuestSession SUCCESS CALLED****");
-        console.log("****RESPONSE == " + response.status_message + "****");
+        console.log("****RATE MOVIE RESPONSE == " + response.status_message + "****");
         var originalMessage = response.status_message;
         var message = originalMessage.replace(".", "!");
         var rating = $(".rating");
         rating.append( '<br><p class="closePara">' + message + '</p>');
       },
       error : function (http, status, error) {
-        alert("some error occured: " + error);
+        alert("ERROR in rate function: " + error);
       }
     });
 
@@ -106,6 +104,7 @@ $(function() {
  * This function displays the users chosen search in a table
 ***************************************************************/
 function displaySearchResults(response) {
+  console.log(response);
 
   var poster_url = "https://image.tmdb.org/t/p/w300";
 
@@ -153,12 +152,9 @@ function findMovieByID(value) {
     var key = "bf12ff7db24e0ff1faa7910b7b295c8b";
 
     $.ajax({
-      url : "https://api.themoviedb.org/3/movie/"+value,
+      url : "/findMovie",
       type : "GET",  // for post change this to POST
-      data : {api_key : key, 
-              language : "en-US", 
-              append_to_response: "videos,release_dates"
-             },
+      data : {movie_id : value},
       dataType : "json",
       success : function (response, status, http) {
         console.log("****SUCCESS CALLED (Movie ID: " + value + ")****"); 
@@ -166,7 +162,7 @@ function findMovieByID(value) {
         displayMovieDetails(response);
       },
       error : function (http, status, error) {
-        alert("some error occured: " + error);
+        alert("ERROR in findMovieByID function: " + error);
       }
     });
 }
