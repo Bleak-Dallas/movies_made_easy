@@ -1,2 +1,3 @@
-# movies_made_easy
-A node.js application for searching for movies and that uses the movie database api.
+# Movies Made Easy
+
+A Node.js application that uses *The Movie Database API* for searching movies
