@@ -4,6 +4,7 @@
   "description": "An application the users can use to see the top 20 rated movies as well as search for and read information about any moview contained in the The Movie Database API",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "build": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
